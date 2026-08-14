@@ -35,7 +35,7 @@ dsh --profile web \
   --remote-auth
 ```
 
-`--allow-remote-privileged` lets the loopback-pinned methods (`settings`, `credentials`, native dialogs) accept the trusted authority; `--remote-auth` enforces the paired-session gate on non-loopback `/api`. With the frp provider, the Sakura Frp edge is HTTPS-only (it returns 501 on `http://`), so open the phone on the `https://` public URL.
+`--allow-remote-privileged` lets the loopback-pinned methods (`settings`, `credentials`, native dialogs) accept the trusted authority; `--remote-auth` enforces the paired-session gate on non-loopback `/api`. Some tunnel providers (including typical frp edges) are HTTPS-only and return 501 on `http://`, so open the phone on the `https://` public URL.
 
 ## Model Experience
 

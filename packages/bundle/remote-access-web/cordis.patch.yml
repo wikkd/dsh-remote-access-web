@@ -2,8 +2,9 @@
 # the dsh-web-app surface.
 #
 # This bundle rides AFTER dsh-web-app in the profile's `dsh.profile.bundles`
-# list. It inserts the remote-access host row that manages an outbound Sakura
-# Frp reverse tunnel so a remote device can reach the harness web service,
+# list. It inserts the remote-access host row that manages an outbound reverse
+# tunnel (provider selected by the deployment) so a remote device can reach the
+# harness web service,
 # without changing any web-app row. The hosted/browser surface (including the
 # phone drawer and the remote-auth pairing gate) is already carried by
 # dsh-web-app; this bundle only adds tunnel management and documents the
@@ -26,7 +27,7 @@
         # Deployment selects the tunnel provider; absent env keeps the schema
         # default `none`, so an unconfigured install stays inert.
         provider: !!js process.env.DSH_REMOTE_ACCESS_PROVIDER || 'none'
-        # Sakura frpc executable path and fast-start value (`-f`), only read
+        # frpc executable path and fast-start value (`-f`), only read
         # when provider is 'frp'. The plugin fails the row if either is missing
         # under frp.
         frpcPath: !!js process.env.DSH_REMOTE_ACCESS_FRPC_PATH

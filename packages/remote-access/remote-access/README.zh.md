@@ -18,7 +18,7 @@
 export interface Config {
   provider: 'none' | 'frp'        // 'none' keeps the plugin inert
   frpcPath?: string               // absolute path to frpc (or compatible); required when provider is 'frp'
-  frpArgs?: string                // Sakura fast-start value for -f, i.e. <访问密钥>:<隧道ID>
+  frpArgs?: string                // frp fast-start value for -f, i.e. <访问密钥>:<隧道ID>
   cwd?: string                    // working directory for the tunnel child; defaults to the process cwd
   graceMs: number                 // grace period (ms) for terminate escalation; defaults to 5000
   publicUrl?: string              // public URL surfaced once the tunnel is up
@@ -39,4 +39,4 @@ export interface Config {
 
 - **仅连接、无认证**——插件开通隧道，但不限定谁能通过它访问 harness。配对认证（`@deepseek-ai/dsh-remote-access`）或可信隧道须另行叠加。
 - **可信权威值必须在启动时传入**——`/api` 信任围栏只采样一次 `--trusted-host`；隧道的公网权威值必须是启动 flag，无法从本插件运行时补加。
-- **单隧道子进程**——插件仅管理一个 Sakura 隧道；多隧道并发与非 Sakura provider 的支持超出本期范围。
+- **单隧道子进程**——插件仅管理一个隧道进程；多隧道并发与其他 provider 的支持超出本期范围。

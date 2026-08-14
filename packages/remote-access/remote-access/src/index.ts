@@ -161,14 +161,13 @@ export interface Config {
   provider: 'none' | 'frp'
   /**
    * Absolute path to the frpc (or compatible) executable.
-   * For Sakura Frp, download it from the control panel's Software page
-   * (the link is generated per platform, no public static URL).
+   * Obtain it from your tunnel provider; paths are provider-specific.
    */
   frpcPath?: string
   /**
-   * Sakura Frp fast-start argument value passed to `-f`,
-   * i.e. `<访问密钥>:<隧道ID>` (comma-joined for multiple tunnels).
-   * This supersedes maintaining a local frp.ini — Sakura pulls it remotely.
+   * Provider fast-start argument value passed to `-f`,
+   * i.e. `<access-secret>:<tunnel-id>` (comma-joined for multiple tunnels).
+   * This supersedes maintaining a local frp.ini — the provider fetches it over the network.
    */
   frpArgs?: string
   /** Working directory for the tunnel child. */

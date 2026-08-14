@@ -1,6 +1,6 @@
 {
   "name": "@deepseek-ai/dsh-remote-access-web",
-  "description": "The dsh browser-surface remote-access bundle: mounts the reverse-tunnel host plugin over dsh-web-app so a remote device can reach the harness web service through a Sakura Frp tunnel",
+  "description": "The dsh browser-surface remote-access bundle: mounts the reverse-tunnel host plugin over dsh-web-app so a remote device can reach the harness web service through a configurable tunnel provider (frp driver)",
   "version": "0.1.0-rc.5",
   "publishConfig": {
     "access": "public"

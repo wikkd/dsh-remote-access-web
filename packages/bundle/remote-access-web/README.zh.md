@@ -35,7 +35,7 @@ dsh --profile web \
   --remote-auth
 ```
 
-`--allow-remote-privileged` 让 loopback 锁定的方法（`settings`、`credentials`、原生对话框）也接受该可信权威值；`--remote-auth` 在非 loopback 的 `/api` 上强制配对会话门禁。使用 frp provider 时，Sakura Frp 边缘仅支持 HTTPS（对 `http://` 返回 501），因此手机应通过 `https://` 公网 URL 访问。
+`--allow-remote-privileged` 让 loopback 锁定的方法（`settings`、`credentials`、原生对话框）也接受该可信权威值；`--remote-auth` 在非 loopback 的 `/api` 上强制配对会话门禁。部分隧道服务商（包括典型的 frp 边缘）只支持 HTTPS（对 `http://` 返回 501），因此手机应通过 `https://` 公网 URL 访问。
 
 ## Model Experience
 
