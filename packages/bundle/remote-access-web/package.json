@@ -1,7 +1,7 @@
 {
   "name": "@froststarinquire/dsh-remote-access-web",
   "description": "Remote-access bundle for the DSH browser surface: mounts the reverse-tunnel host plugin and pins the directory picker to the in-app browse dialog so a remote operator can add workspaces",
-  "version": "0.1.0-rc.5",
+  "version": "0.1.0-rc.6",
   "publishConfig": {
     "access": "public"
   },
@@ -34,9 +34,9 @@
     }
   },
   "dependencies": {
-    "@deepseek-ai/dsh-client-ui-directory-picker-browse": "^0.1.0-rc.5",
-    "@deepseek-ai/dsh-host-directory-picker-browse": "^0.1.0-rc.5",
-    "@froststarinquire/dsh-remote-access": "^0.1.0-rc.5"
+    "@deepseek-ai/dsh-client-ui-directory-picker-browse": "^0.1.0-rc.6",
+    "@deepseek-ai/dsh-host-directory-picker-browse": "^0.1.0-rc.6",
+    "@froststarinquire/dsh-remote-access": "^0.1.0-rc.6"
   },
   "scripts": {
     "prepare": "node scripts/prepare.mjs"

@@ -1,6 +1,10 @@
 packages:
   - packages/*/*
 
+allowBuilds:
+  '@deepseek-ai/dsh-subprocess-local': true
+  node-pty: true
+
 linkWorkspacePackages: true
 
 peerDependencyRules:

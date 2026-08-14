@@ -1,7 +1,7 @@
 {
   "name": "@froststarinquire/dsh-remote-access",
   "description": "Remote-access host plugin: manages and keeps alive an outbound reverse tunnel to a device's harness web service",
-  "version": "0.1.0-rc.5",
+  "version": "0.1.0-rc.6",
   "publishConfig": {
     "access": "public"
   },
@@ -12,19 +12,15 @@
   },
   "type": "module",
   "main": "lib/index.js",
-  "types": "lib/types/index.d.ts",
+  "types": "lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "./lib/types/index.d.ts",
+      "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
     },
     "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
+      "types": "./lib/invariant.d.ts",
       "default": "./lib/invariant.js"
-    },
-    "./types": {
-      "types": "./lib/types/types.d.ts",
-      "default": "./lib/types/types.js"
     },
     "./src/*": "./src/*",
     "./package.json": "./package.json"
@@ -32,19 +28,25 @@
   "files": [
     "lib/index.js",
     "lib/invariant.js",
-    "lib/types/**/*.js",
-    "lib/types/**/*.d.ts"
+    "lib/index.d.ts",
+    "lib/invariant.d.ts"
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@deepseek-ai/cordis": "^0.1.0-rc.5",
-    "@deepseek-ai/dsh-subprocess": "^0.1.0-rc.5",
-    "@deepseek-ai/dsh-invariants": "^0.1.0-rc.5"
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+    "@deepseek-ai/dsh-subprocess": "^0.1.0-rc.6"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "^0.1.0-rc.5",
-    "@deepseek-ai/dsh-subprocess": "^0.1.0-rc.5",
-    "@deepseek-ai/dsh-subprocess-local": "^0.1.0-rc.5",
-    "@deepseek-ai/dsh-invariants": "^0.1.0-rc.5"
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+    "@deepseek-ai/dsh-subprocess": "^0.1.0-rc.6",
+    "@deepseek-ai/dsh-subprocess-local": "^0.1.0-rc.6",
+    "@types/node": "^22.20.1",
+    "tsdown": "^0.22.2",
+    "typescript": "^5.9.0"
+  },
+  "scripts": {
+    "prepare": "node scripts/prepare.mjs"
   }
 }
