@@ -1,5 +1,7 @@
 # dsh-remote-access-web
 
+English | [中文](README.zh.md)
+
 Independent source/publishing repository for the DeepSeek Harness **remote-access plugin family**. This repository hosts the packages that let a remote device reach a `dsh --profile web` deployment through a Sakura Frp reverse tunnel, plus the authentication pairing gate and its browser settings surface.
 
 ## Packages
@@ -14,6 +16,10 @@ Independent source/publishing repository for the DeepSeek Harness **remote-acces
 ## Status
 
 Source and publishing-ready. The packages depend as **peers on the released `@deepseek-ai/*` harness packages** (`cordis`, `dsh-subprocess`, the `dsh-client-*` web stack, `web-react`, React). Those peers are published to npm as part of the DeepSeek Harness release; a standalone `pnpm install`/build in this repository requires them published under the `0.1.0` line. Until that publication, this repository holds the source and CI-ready structure rather than a self-contained build.
+
+## Remote workspace picker
+
+The installable bundle pins the directory-picker seam to the in-app **`-browse`** interaction. `dsh-web-app` mounts the adaptive chooser, which resolves to the native OS dialog whenever the harness binds only loopback — exactly what a reverse tunnel sees, so a remote operator cannot open a local OS chooser and the **Add workspace** affordance stays unrendered. The bundle disables that chooser row and mounts the in-app directory dialog (host backend + client surface) so a remote operator can add workspaces.
 
 ## Install the bundle
 
