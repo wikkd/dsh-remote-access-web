@@ -1,0 +1,13 @@
+{
+  "name": "dsh-remote-access-web",
+  "version": "0.1.0-rc.5",
+  "private": true,
+  "description": "Standalone source/publishing repo for the DeepSeek Harness remote-access plugin family",
+  "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": "^22.19 || >=24"
+  },
+  "workspaces": [
+    "packages/*/*"
+  ]
+}

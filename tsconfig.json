@@ -1,0 +1,9 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/remote-access/remote-access" },
+    { "path": "./packages/remote-access/remote-auth" },
+    { "path": "./packages/client/ui-remote-auth" },
+    { "path": "./packages/bundle/remote-access-web" }
+  ]
+}

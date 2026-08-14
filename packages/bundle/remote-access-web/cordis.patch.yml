@@ -1,0 +1,39 @@
+# The dsh-remote-access-web bundle patch: the reverse-tunnel host layer over
+# the dsh-web-app surface.
+#
+# This bundle rides AFTER dsh-web-app in the profile's `dsh.profile.bundles`
+# list. It inserts the remote-access host row that manages an outbound Sakura
+# Frp reverse tunnel so a remote device can reach the harness web service,
+# without changing any web-app row. The hosted/browser surface (including the
+# phone drawer and the remote-auth pairing gate) is already carried by
+# dsh-web-app; this bundle only adds tunnel management and documents the
+# launch contract that admits the tunnel through the /api browser-trust fence.
+#
+# The mounted plugin is inert unless a tunnel is actually configured: its
+# Config default `provider: 'none'` keeps it from spawning anything. The row
+# below leaves `provider` unset (so the default holds) unless a deployment
+# names a provider via env, matching the plugin's "no tunnel means inert"
+# contract. Env is the deployment plane (frpc binary path, fast-start secret,
+# public URL) — never literal here. When `provider: 'frp'` is selected but
+# `frpcPath`/`frpArgs` are absent, the owning plugin refuses to activate loud
+# rather than silently running without a tunnel.
+
+- insert:
+    # One stable row id; the owning plugin registers `ctx.remoteAccess`.
+    - id: remote-access
+      name: '@deepseek-ai/dsh-remote-access'
+      config:
+        # Deployment selects the tunnel provider; absent env keeps the schema
+        # default `none`, so an unconfigured install stays inert.
+        provider: !!js process.env.DSH_REMOTE_ACCESS_PROVIDER || 'none'
+        # Sakura frpc executable path and fast-start value (`-f`), only read
+        # when provider is 'frp'. The plugin fails the row if either is missing
+        # under frp.
+        frpcPath: !!js process.env.DSH_REMOTE_ACCESS_FRPC_PATH
+        frpArgs: !!js process.env.DSH_REMOTE_ACCESS_FRP_ARGS
+        # Working directory for the tunnel child (defaults to the process cwd
+        # inside the plugin when unset).
+        cwd: !!js process.env.DSH_REMOTE_ACCESS_CWD
+        # Public URL surfaced to the user once the tunnel is up; also the value
+        # the plugin's `trustedAuthority()` canonicalizes for the trust fence.
+        publicUrl: !!js process.env.DSH_REMOTE_ACCESS_PUBLIC_URL
