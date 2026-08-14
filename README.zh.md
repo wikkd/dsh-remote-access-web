@@ -39,3 +39,7 @@ dsh --profile web \
 ```
 
 完整启动契约见 bundle 的 [`README`](packages/bundle/remote-access-web/README.md)。
+
+## AIGC 声明
+
+本仓库由 AI 辅助开发。代码、文档与列表描述均由大语言模型在人类维护者的协作下生成或改写。部署到不受信任的环境前请先审阅源码。

@@ -39,3 +39,7 @@ dsh --profile web \
 ```
 
 See the bundle [`README`](packages/bundle/remote-access-web/README.md) for the full launch contract.
+
+## AIGC Disclosure
+
+This repository was developed with AI assistance. The code, documentation, and listing descriptions were generated or revised by a large language model in collaboration with a human maintainer. Review the source before deploying it to an untrusted environment.
