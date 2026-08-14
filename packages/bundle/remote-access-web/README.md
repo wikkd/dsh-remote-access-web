@@ -22,13 +22,15 @@ The row honors the deployment env (all optional; `provider` defaults to `none`):
 
 When `provider` is `frp` but `frpcPath`/`frpArgs` are absent, the owning plugin refuses to activate loud rather than silently running without a tunnel.
 
+The tunnel's connection address is **yours to supply** — the plugin never ships a default endpoint. Set the env above to your own provider's public host (`DSH_REMOTE_ACCESS_PUBLIC_URL`) and launch credential (`DSH_REMOTE_ACCESS_FRP_ARGS`); without them, an install stays inert.
+
 ## Launch contract
 
-The tunnel's public authority must reach the `/api` browser-trust fence **at boot** — the fence samples trust once when `dsh-web-app` provides `webRuntime`, so a runtime plugin cannot retrofit it. Launch with the tunnel authority as a trusted host (and open the remote surface as desired):
+The tunnel's public authority must reach the `/api` browser-trust fence **at boot** — the fence samples trust once when `dsh-web-app` provides `webRuntime`, so a runtime plugin cannot retrofit it. Put your own tunnel authority in place of `<your-tunnel-host>` and launch (and open the remote surface as desired):
 
 ```sh
 dsh --profile web \
-  --trusted-host tunnel.example.com:5953 \
+  --trusted-host <your-tunnel-host:port> \
   --allow-remote-privileged \
   --remote-auth
 ```

@@ -22,13 +22,15 @@ profile 在 `dsh.profile.bundles` 列表里把本 bundle 放在 `dsh-web-app` �
 
 当 `provider` 为 `frp` 但 `frpcPath`/`frpArgs` 缺失时，所属插件会响亮拒绝激活，而非静默地在没有隧道的情况下运行。
 
+隧道的连接地址**由你自己提供**——插件从不内置默认端点。请用上方环境变量设置你自有提供方的公网主机（`DSH_REMOTE_ACCESS_PUBLIC_URL`）与启动凭据（`DSH_REMOTE_ACCESS_FRP_ARGS`）；不设置时，安装保持惰性。
+
 ## 启动契约
 
-隧道的公网权威值必须**在启动时**进入 `/api` browser-trust 围栏——围栏只在 `dsh-web-app` 提供 `webRuntime` 时采样一次，运行期插件无法事后补挂。请用隧道权威值作为可信 host 启动（并按需开启远程 facade）：
+隧道的公网权威值必须**在启动时**进入 `/api` browser-trust 围栏——围栏只在 `dsh-web-app` 提供 `webRuntime` 时采样一次，运行期插件无法事后补挂。请把 `<your-tunnel-host:port>` 换成你自己的隧道权威值，以可信 host 启动（并按需开启远程 facade）：
 
 ```sh
 dsh --profile web \
-  --trusted-host tunnel.example.com:5953 \
+  --trusted-host <your-tunnel-host:port> \
   --allow-remote-privileged \
   --remote-auth
 ```

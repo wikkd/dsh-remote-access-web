@@ -29,11 +29,11 @@ DeepSeek Harness **远程访问插件族**的独立源码/发布仓库。本仓�
 dsh plugin --profile web add @deepseek-ai/dsh-remote-access-web
 ```
 
-然后在启动时用隧道权威值把 web surface 加入白名单：
+然后在启动时用它把你自己的隧道权威值加入白名单（把 `<your-tunnel-host:port>` 换成你的公网地址）：
 
 ```sh
 dsh --profile web \
-  --trusted-host tunnel.example.com:5953 \
+  --trusted-host <your-tunnel-host:port> \
   --allow-remote-privileged \
   --remote-auth
 ```

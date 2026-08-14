@@ -29,11 +29,11 @@ From the main DeepSeek Harness installation:
 dsh plugin --profile web add @deepseek-ai/dsh-remote-access-web
 ```
 
-Then launch the web surface with the tunnel authority whitelisted at boot:
+Then launch the web surface, replacing `<your-tunnel-host:port>` with your own tunnel's public authority:
 
 ```sh
 dsh --profile web \
-  --trusted-host tunnel.example.com:5953 \
+  --trusted-host <your-tunnel-host:port> \
   --allow-remote-privileged \
   --remote-auth
 ```
