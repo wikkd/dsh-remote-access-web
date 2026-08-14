@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-dsh 浏览器 surface 的远程访问 bundle。[`cordis.patch.yml`](cordis.patch.yml) 叠加在 [`dsh-web-app`](../web-app/README.md) 之上：它插入 `@deepseek-ai/dsh-remote-access` host 行（位于 `packages/remote-access/remote-access`），由该插件管理一个出站 Sakura Frp（a tunnel provider）反向隧道，使远程设备能访问 harness web 服务。已托管的浏览器 surface（含手机抽屉布局与 remote-auth 配对门禁）仍由 `dsh-web-app` 承载；本 bundle 只负责隧道管理，并说明把隧道准入 `/api` browser-trust 围栏的启动契约。
+dsh 浏览器 surface 的远程访问 bundle。[`cordis.patch.yml`](cordis.patch.yml) 叠加在 [`dsh-web-app`](../web-app/README.md) 之上：它插入 `@deepseek-ai/dsh-remote-access` host 行（位于 `packages/remote-access/remote-access`），由该插件管理一条出站反向隧道，使远程设备能访问 harness web 服务。隧道后端由 `provider` 配置决定；随附的驱动是 **frp** provider（`provider: 'frp'`），运行一个兼容 `frpc` 的客户端。已托管的浏览器 surface（含手机抽屉布局与 remote-auth 配对门禁）仍由 `dsh-web-app` 承载；本 bundle 只负责隧道管理，并说明把隧道准入 `/api` browser-trust 围栏的启动契约。
 
 profile 在 `dsh.profile.bundles` 列表里把本 bundle 放在 `dsh-web-app` 之后。因为 bundle patch 替换整行的 `config`，插入的行全部从部署环境（`DSH_REMOTE_ACCESS_*`）读取，绝不写死字面量。未配置的安装保持惰性：插件的 `provider` 默认为 `none`，所以一个还没有隧道凭据就添加本 bundle 的 profile 不会启动任何子进程。
 
@@ -14,9 +14,9 @@ profile 在 `dsh.profile.bundles` 列表里把本 bundle 放在 `dsh-web-app` �
 
 | 环境变量 | 含义 |
 |---|---|
-| `DSH_REMOTE_ACCESS_PROVIDER` | `frp` 以挂载隧道；缺省保持 schema 默认 `none`（惰性） |
+| `DSH_REMOTE_ACCESS_PROVIDER` | 隧道后端；`frp` 通过兼容 frpc 的客户端挂载隧道，缺省保持 schema 默认 `none`（惰性）。该字段为部署可配置，便于后续接入其它后端 |
 | `DSH_REMOTE_ACCESS_FRPC_PATH` | `frpc`（或兼容程序）的绝对路径；`provider` 为 `frp` 时必填 |
-| `DSH_REMOTE_ACCESS_FRP_ARGS` | 传给 `-f` 的 Sakura 快速启动值，即 `<访问密钥>:<隧道ID>` |
+| `DSH_REMOTE_ACCESS_FRP_ARGS` | 传给 `-f` 的 frp 快速启动值，即 `<访问密钥>:<隧道ID>` |
 | `DSH_REMOTE_ACCESS_CWD` | 隧道子进程的工作目录；缺省为进程 cwd |
 | `DSH_REMOTE_ACCESS_PUBLIC_URL` | 隧道就绪后对用户展示的公网 URL；插件的 `trustedAuthority()` 会将其规范化为信任围栏所需的权威值 |
 
@@ -33,7 +33,7 @@ dsh --profile web \
   --remote-auth
 ```
 
-`--allow-remote-privileged` 让 loopback 锁定的方法（`settings`、`credentials`、原生对话框）也接受该可信权威值；`--remote-auth` 在非 loopback 的 `/api` 上强制配对会话门禁。隧道仅支持 HTTPS（Sakura 边缘对 `http://` 返回 501），因此手机应通过 `https://` 公网 URL 访问。
+`--allow-remote-privileged` 让 loopback 锁定的方法（`settings`、`credentials`、原生对话框）也接受该可信权威值；`--remote-auth` 在非 loopback 的 `/api` 上强制配对会话门禁。使用 frp provider 时，Sakura Frp 边缘仅支持 HTTPS（对 `http://` 返回 501），因此手机应通过 `https://` 公网 URL 访问。
 
 ## Model Experience
 

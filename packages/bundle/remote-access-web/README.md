@@ -2,7 +2,7 @@
 
 English | [中文](README.zh.md)
 
-The dsh browser-surface remote-access bundle. [`cordis.patch.yml`](cordis.patch.yml) rides over [`dsh-web-app`](../web-app/README.md): it inserts the `@deepseek-ai/dsh-remote-access` host row (under `packages/remote-access/remote-access`), which manages an outbound Sakura Frp (`a tunnel provider`) reverse tunnel so a remote device can reach the harness web service. The hosted/browser surface — including the phone drawer layout and the remote-auth pairing gate — is already carried by `dsh-web-app`; this bundle adds only tunnel management and documents the launch contract that admits the tunnel through the `/api` browser-trust fence.
+The dsh browser-surface remote-access bundle. [`cordis.patch.yml`](cordis.patch.yml) rides over [`dsh-web-app`](../web-app/README.md): it inserts the `@deepseek-ai/dsh-remote-access` host row (under `packages/remote-access/remote-access`), which manages an outbound reverse tunnel so a remote device can reach the harness web service. The tunnel backend is selected by the `provider` config; the shipped driver is the **frp** provider (`provider: 'frp'`), running an `frpc`-compatible client. The hosted/browser surface — including the phone drawer layout and the remote-auth pairing gate — is already carried by `dsh-web-app`; this bundle adds only tunnel management and documents the launch contract that admits the tunnel through the `/api` browser-trust fence.
 
 A profile installs this bundle after `dsh-web-app` in its `dsh.profile.bundles` list. Because a bundle patch replaces a whole row's `config`, the inserted row reads every value from the deployment environment (`DSH_REMOTE_ACCESS_*`), never literal config. An unconfigured install stays inert: the plugin's `provider` default is `none`, so a profile that adds this bundle before owning a tunnel spawns nothing.
 
@@ -14,9 +14,9 @@ The row honors the deployment env (all optional; `provider` defaults to `none`):
 
 | Env | Meaning |
 |---|---|
-| `DSH_REMOTE_ACCESS_PROVIDER` | `frp` to mount the tunnel; absent keeps the schema default `none` (inert) |
+| `DSH_REMOTE_ACCESS_PROVIDER` | Tunnel backend; `frp` mounts a tunnel through an frpc-compatible client, absent keeps the schema default `none` (inert). The field is deployment-configurable so other backends can be added |
 | `DSH_REMOTE_ACCESS_FRPC_PATH` | absolute path to `frpc` (or compatible); required when `provider` is `frp` |
-| `DSH_REMOTE_ACCESS_FRP_ARGS` | Sakura fast-start value for `-f`, i.e. `<访问密钥>:<隧道ID>` |
+| `DSH_REMOTE_ACCESS_FRP_ARGS` | frp fast-start value for `-f`, i.e. `<access-secret>:<tunnel-id>` |
 | `DSH_REMOTE_ACCESS_CWD` | working directory for the tunnel child; defaults to the process cwd |
 | `DSH_REMOTE_ACCESS_PUBLIC_URL` | public URL surfaced once the tunnel is up; the plugin's `trustedAuthority()` canonicalizes it for the trust fence |
 
@@ -33,7 +33,7 @@ dsh --profile web \
   --remote-auth
 ```
 
-`--allow-remote-privileged` lets the loopback-pinned methods (`settings`, `credentials`, native dialogs) accept the trusted authority; `--remote-auth` enforces the paired-session gate on non-loopback `/api`. The tunnel is HTTPS-only (the Sakura edge returns 501 on `http://`), so open the phone on the `https://` public URL.
+`--allow-remote-privileged` lets the loopback-pinned methods (`settings`, `credentials`, native dialogs) accept the trusted authority; `--remote-auth` enforces the paired-session gate on non-loopback `/api`. With the frp provider, the Sakura Frp edge is HTTPS-only (it returns 501 on `http://`), so open the phone on the `https://` public URL.
 
 ## Model Experience
 

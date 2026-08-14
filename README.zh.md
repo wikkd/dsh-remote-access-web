@@ -2,13 +2,13 @@
 
 [English](README.md) | 中文
 
-DeepSeek Harness **远程访问插件族**的独立源码/发布仓库。本仓库托管这些包：让远程设备能通过 Sakura Frp 反向隧道访问 `dsh --profile web` 部署，外加认证配对门禁及其浏览器设置界面。
+DeepSeek Harness **远程访问插件族**的独立源码/发布仓库。本仓库托管这些包：让远程设备能通过一条受管理的反向隧道访问 `dsh --profile web` 部署，外加认证配对门禁及其浏览器设置界面。隧道后端由可配置的 `provider` 决定；随附的驱动是 **frp** provider，运行一个兼容 `frpc` 的客户端。
 
 ## 包含的包
 
 | 包 | 作用 |
 |---|---|
-| [`@deepseek-ai/dsh-remote-access`](packages/remote-access/remote-access/README.md) | 反向隧道 host 插件（`ctx.remoteAccess`）：管理并保活出站 Sakura Frp 子进程 |
+| [`@deepseek-ai/dsh-remote-access`](packages/remote-access/remote-access/README.md) | 反向隧道 host 插件（`ctx.remoteAccess`）：管理并保活已配置 provider 的出站隧道子进程 |
 | [`@deepseek-ai/dsh-remote-auth`](packages/remote-access/remote-auth/README.md) | 配对认证 host 插件：种子令牌 + 一次性设备配对，门禁非 loopback 的 `/api` |
 | [`@deepseek-ai/dsh-client-ui-remote-auth`](packages/client/ui-remote-auth/README.md) | 配对 seam 的浏览器设置界面 |
 | [`@deepseek-ai/dsh-remote-access-web`](packages/bundle/remote-access-web/README.md) | 可安装的 profile bundle，在 `dsh-web-app` 之上挂载隧道行 |
