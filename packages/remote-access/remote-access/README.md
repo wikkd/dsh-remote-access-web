@@ -2,7 +2,7 @@
 
 English | [中文](README.zh.md)
 
-Remote-access host plugin: manages and keeps alive an outbound reverse-tunnel child so a remote device can reach the harness web service. The plugin owns a Sakura Frp (`a tunnel provider`) tunnel process and publishes the tunnel's reachability state.
+Remote-access host plugin: manages and keeps alive an outbound reverse-tunnel child so a remote device can reach the harness web service. The tunnel backend is chosen by the `provider` config; the shipped driver is the **frp** provider running an `frpc`-compatible client. The plugin publishes the tunnel's reachability state.
 
 The plugin's scope is **connect only** — it establishes and maintains a tunnel, and deliberately does **not** add an authentication layer in front of the harness web service. A remote device that reaches the tunnel passes the `/api` browser-trust fence once `--trusted-host` whitelists the tunnel authority; pairing auth ([`@deepseek-ai/dsh-remote-auth`](../remote-auth/README.md)) is the separate layer that proves caller identity. The plugin is **inert unless a real tunnel credential is configured**: its `provider` defaults to `none`, so an unconfigured mount spawns nothing.
 

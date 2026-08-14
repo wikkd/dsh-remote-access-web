@@ -24,7 +24,7 @@ describe('canonicalAuthorityFromPublicUrl', () => {
   })
 
   it('normalizes case through WHATWG parsing, collapsing scheme-default ports exactly as the fence does', () => {
-    expect(canonicalAuthorityFromPublicUrl('FRP-BOX.com:5953')).toBe('tunnel.example.com:5953')
+    expect(canonicalAuthorityFromPublicUrl('TUNNEL.EXAMPLE.COM:5953')).toBe('tunnel.example.com:5953')
     // A scheme-default port (:80 for http, :443 for https) is the WHATWG
     // "no port" form; the fence's canonicalAuthority treats it as port-less,
     // which port-less entries match on any port. Keep that identical contract.

@@ -5,8 +5,9 @@
  * reverse-tunnel child process, keeps it alive with automatic restart, and
  * publishes the tunnel's reachability state.
  *
- * v1 scope is CONNECT ONLY — this plugin establishes and maintains a Sakura
- * Frp (a tunnel provider) tunnel from the harness machine to the provider's edge so
+ * v1 scope is CONNECT ONLY — this plugin establishes and maintains a
+ * reverse tunnel (the shipped driver is the `frp` provider, an
+ * `frpc`-compatible client) from the harness machine to the provider's edge so
  * a remote device can reach the harness web service. It deliberately does NOT
  * add an authentication layer in front of the harness web service yet; that
  * is a later phase. Running this plugin with a live tunnel therefore exposes

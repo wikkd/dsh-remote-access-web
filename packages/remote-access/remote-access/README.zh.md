@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-远程访问 host 插件：管理并保活一个出站反向隧道子进程，使远程设备能访问 harness web 服务。该插件持有单个 Sakura Frp（a tunnel provider）隧道进程，并对外发布隧道的可达性状态。
+远程访问 host 插件：管理并保活一个出站反向隧道子进程，使远程设备能访问 harness web 服务。隧道后端由 `provider` 配置决定；随附的驱动是 **frp** provider，运行一个兼容 `frpc` 的客户端。该插件对外发布隧道的可达性状态。
 
 插件范围是**仅建立连接**——它负责建立并维持一个隧道，**不**在 harness web 服务前添加认证层。一旦 `--trusted-host` 把隧道权威值加入白名单，远程设备就能通过 `/api` 浏览器信任围栏；配对认证（[`@deepseek-ai/dsh-remote-auth`](../remote-auth/README.md)）才是证明调用者身份的独立一层。插件**在未配置真实隧道凭据时保持惰性**：其 `provider` 默认为 `none`，未配置的挂载不会启动任何东西。
 

@@ -1,28 +1,32 @@
 #!/usr/bin/env bash
-# Launch dsh web so the browser-trust fence admits the Sakura tunnel authority.
+# Launch dsh web so the browser-trust fence admits a reverse-tunnel authority.
 #
 # The /api trust fence rejects any request whose Host is neither loopback nor
 # a declared --trusted-host (HTTP 403 -> "transport failure ... HTTP 403" in
-# the GUI, e.g. /api/agentPreset.list). The tunnel forwards the phone's Host
-# ("tunnel.example.com:5953") verbatim, so every /api call 403s until the authority
-# is whitelisted. Passing it here is the built-in, load-time fix (the fence
+# the GUI, e.g. /api/agentPreset.list). A reverse tunnel forwards the remote
+# client's Host verbatim, so every /api call 403s until the authority is
+# whitelisted. Passing it here is the built-in, load-time fix (the fence
 # captures the list once at boot; a runtime plugin cannot retrofit it).
 #
 # The settings/credentials/native-dialog methods are pinned to loopback even
 # with --trusted-host; --allow-remote-privileged opts them into the trusted
-# authority too, so the phone's "预设/权限/模型" page (settings.describe) stops
-# 403ing. This exposes the configuration plane to anyone who can reach the
-# tunnel, which has no authentication layer yet — enable it only on a tunnel
-# you trust.
+# authority too, so the remote settings page stops 403ing. This exposes the
+# configuration plane to anyone who can reach the tunnel, which has no
+# authentication layer yet — enable it only on a tunnel you trust.
 #
-# https is required: the tunnel enforces TLS (http:// returns Sakura's 501
-# "Not Implemented" page). Access the phone UI at the https URL below.
+# https is required: a TLS-enforcing tunnel edge rejects plain http. Access the
+# remote UI at the https URL below.
 #
-# Adjust TUNNEL_AUTHORITY to your public endpoint host[:port].
+# TUNNEL_AUTHORITY must be set to your own public endpoint host[:port]; the
+# script refuses to run without it rather than defaulting to someone else's.
 set -euo pipefail
 
 PORT="${PORT:-3080}"
-TUNNEL_AUTHORITY="${TUNNEL_AUTHORITY:-tunnel.example.com:5953}"
+TUNNEL_AUTHORITY="${TUNNEL_AUTHORITY:-}"
+if [ -z "$TUNNEL_AUTHORITY" ]; then
+  echo "error: TUNNEL_AUTHORITY is required (your public tunnel host[:port])" >&2
+  exit 1
+fi
 # 默认开启远程认证：非 loopback 客户端必须先配对拿到会话 Cookie，否则 /api 返回 401。
 REMOTE_AUTH="${REMOTE_AUTH:-1}"
 # 仅当远程认证开启时才把 loopback 锁定的特权方法（settings/credentials/原生对话框）开放给隧道。
