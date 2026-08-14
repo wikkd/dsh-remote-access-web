@@ -6,6 +6,8 @@ dsh 浏览器 surface 的远程访问 bundle。[`cordis.patch.yml`](cordis.patch
 
 profile 在 `dsh.profile.bundles` 列表里把本 bundle 放在 `dsh-web-app` 之后。因为 bundle patch 替换整行的 `config`，插入的行全部从部署环境（`DSH_REMOTE_ACCESS_*`）读取，绝不写死字面量。未配置的安装保持惰性：插件的 `provider` 默认为 `none`，所以一个还没有隧道凭据就添加本 bundle 的 profile 不会启动任何子进程。
 
+本 patch 还会把**目录选择 seam 固定为应用内 `-browse` 交互**。`dsh-web-app` 挂载的是自适应 `dsh-host-directory-picker-auto` 选择器，一旦 harness 只绑定 loopback（恰恰是反向隧道看到的情形），它就会解析为原生 OS 对话框，远程操作者因此无法弹出本地对话框，**Add workspace** 入口也不会渲染。本 bundle 禁用该行，改挂 `dsh-host-directory-picker-browse` 及其 `dsh-client-ui-directory-picker-browse` 表层，让远程操作者使用基于 host 的 `listDirectory`/`createDirectory` 原语的应用内 Miller 列目录对话框。
+
 ## 配置
 
 该行遵循部署环境变量（全部可选；`provider` 默认为 `none`）：
@@ -35,7 +37,7 @@ dsh --profile web \
 
 ## Model Experience
 
-间接地，通过插入的行生效：本 bundle 选择 web-app 表层所依赖的反向隧道 host 行，自身不贡献任何模型可见文本。
+间接地，通过插入的行生效：本 bundle 选择 web-app 表层所依赖的反向隧道 host 行，并固定浏览器目录组合，自身不贡献任何模型可见文本。
 
 #### KV Cache effect
 

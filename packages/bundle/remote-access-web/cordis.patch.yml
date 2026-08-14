@@ -37,3 +37,21 @@
         # Public URL surfaced to the user once the tunnel is up; also the value
         # the plugin's `trustedAuthority()` canonicalizes for the trust fence.
         publicUrl: !!js process.env.DSH_REMOTE_ACCESS_PUBLIC_URL
+
+# Pin the directory-picker seam to the in-app browse interaction. web-app's
+# adaptive chooser (dsh-host-directory-picker-auto) resolves to the native OS
+# dialog whenever the harness binds only loopback — exactly what a reverse
+# tunnel sees, so the remote operator cannot open a local OS chooser and the
+# Add workspace affordance stays unrendered. A remote-tunnel deployment must
+# use the -browse interaction (an in-app Miller-column dialog driven over the
+# host's listDirectory/createDirectory primitives) instead. Disable the auto
+# row and mount the browse host row in its place; its browser surface is a
+# web-app dependency, discovered through the client manifest.
+- id: directory-picker
+  disabled: true
+
+- insert:
+    - id: directory-picker-browse
+      name: '@deepseek-ai/dsh-host-directory-picker-browse'
+    - id: ui-directory-picker-browse
+      name: '@deepseek-ai/dsh-client-ui-directory-picker-browse'

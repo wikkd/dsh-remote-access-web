@@ -39,6 +39,8 @@
     }
   },
   "dependencies": {
+    "@deepseek-ai/dsh-client-ui-directory-picker-browse": "^0.1.0-rc.5",
+    "@deepseek-ai/dsh-host-directory-picker-browse": "^0.1.0-rc.5",
     "@deepseek-ai/dsh-remote-access": "^0.1.0-rc.5"
   },
   "peerDependencies": {

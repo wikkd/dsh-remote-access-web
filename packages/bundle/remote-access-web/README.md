@@ -6,6 +6,8 @@ The dsh browser-surface remote-access bundle. [`cordis.patch.yml`](cordis.patch.
 
 A profile installs this bundle after `dsh-web-app` in its `dsh.profile.bundles` list. Because a bundle patch replaces a whole row's `config`, the inserted row reads every value from the deployment environment (`DSH_REMOTE_ACCESS_*`), never literal config. An unconfigured install stays inert: the plugin's `provider` default is `none`, so a profile that adds this bundle before owning a tunnel spawns nothing.
 
+The patch also **pins the directory-picker seam to the in-app `-browse` interaction** for this deployment. `dsh-web-app` mounts the adaptive `dsh-host-directory-picker-auto` chooser, which resolves to the native OS dialog whenever the harness binds only loopback — precisely what a reverse tunnel sees, so a remote operator cannot open a local OS chooser and the **Add workspace** affordance stays unrendered. This bundle disables that row and mounts `dsh-host-directory-picker-browse` plus its `dsh-client-ui-directory-picker-browse` surface, giving the remote operator the in-app Miller-column directory dialog backed by the host's `listDirectory`/`createDirectory` primitives.
+
 ## Configuration
 
 The row honors the deployment env (all optional; `provider` defaults to `none`):
@@ -35,7 +37,7 @@ dsh --profile web \
 
 ## Model Experience
 
-Indirectly, through the inserted rows: this bundle selects the reverse-tunnel host row that the web-app surface rides over, and contributes no model-visible text of its own.
+Indirectly, through the inserted rows: this bundle selects the reverse-tunnel host row that the web-app surface rides over and pins the browser-directory composition, and contributes no model-visible text of its own.
 
 #### KV Cache effect
 
