@@ -1,13 +1,13 @@
 /**
- * Package-owned invariant companion for `@deepseek-ai/dsh-remote-access`.
- * @module @deepseek-ai/dsh-remote-access/invariant
+ * Package-owned invariant companion for `@froststarinquire/dsh-remote-access`.
+ * @module @froststarinquire/dsh-remote-access/invariant
  */
 
 /* jscpd:ignore-start */
 import type { Context } from '@deepseek-ai/cordis'
 import type { InvariantInstaller } from '@deepseek-ai/dsh-invariants'
 
-const PACKAGE_NAME = '@deepseek-ai/dsh-remote-access'
+const PACKAGE_NAME = '@froststarinquire/dsh-remote-access'
 
 /** Cordis companion plugin name. */
 export const name = 'remote-access-invariant'

@@ -1,5 +1,5 @@
 /**
- * @module @deepseek-ai/dsh-remote-access/types
+ * @module @froststarinquire/dsh-remote-access/types
  *
  * The `ctx.remoteAccess` service contract: tunnel reachability state and a
  * lifecycle event stream. Type-only — carries no runtime code.

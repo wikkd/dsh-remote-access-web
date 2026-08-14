@@ -1,8 +1,8 @@
-# `@deepseek-ai/dsh-remote-access-web`
+# `@froststarinquire/dsh-remote-access-web`
 
 English | [中文](README.zh.md)
 
-The dsh browser-surface remote-access bundle. [`cordis.patch.yml`](cordis.patch.yml) rides over [`dsh-web-app`](../web-app/README.md): it inserts the `@deepseek-ai/dsh-remote-access` host row (under `packages/remote-access/remote-access`), which manages an outbound reverse tunnel so a remote device can reach the harness web service. The tunnel backend is selected by the `provider` config; the shipped driver is the **frp** provider (`provider: 'frp'`), running an `frpc`-compatible client. The hosted/browser surface — including the phone drawer layout and the remote-auth pairing gate — is already carried by `dsh-web-app`; this bundle adds only tunnel management and documents the launch contract that admits the tunnel through the `/api` browser-trust fence.
+The dsh browser-surface remote-access bundle. [`cordis.patch.yml`](cordis.patch.yml) rides over [`dsh-web-app`](../web-app/README.md): it inserts the `@froststarinquire/dsh-remote-access` host row (under `packages/remote-access/remote-access`), which manages an outbound reverse tunnel so a remote device can reach the harness web service. The tunnel backend is selected by the `provider` config; the shipped driver is the **frp** provider (`provider: 'frp'`), running an `frpc`-compatible client. The hosted/browser surface — including the phone drawer layout and the remote-auth pairing gate — is already carried by `dsh-web-app`; this bundle adds only tunnel management and documents the launch contract that admits the tunnel through the `/api` browser-trust fence.
 
 A profile installs this bundle after `dsh-web-app` in its `dsh.profile.bundles` list. Because a bundle patch replaces a whole row's `config`, the inserted row reads every value from the deployment environment (`DSH_REMOTE_ACCESS_*`), never literal config. An unconfigured install stays inert: the plugin's `provider` default is `none`, so a profile that adds this bundle before owning a tunnel spawns nothing.
 

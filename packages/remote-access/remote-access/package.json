@@ -1,5 +1,5 @@
 {
-  "name": "@deepseek-ai/dsh-remote-access",
+  "name": "@froststarinquire/dsh-remote-access",
   "description": "Remote-access host plugin: manages and keeps alive an outbound reverse tunnel to a device's harness web service",
   "version": "0.1.0-rc.5",
   "publishConfig": {

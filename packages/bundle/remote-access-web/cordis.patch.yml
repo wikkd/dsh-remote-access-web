@@ -22,7 +22,7 @@
 - insert:
     # One stable row id; the owning plugin registers `ctx.remoteAccess`.
     - id: remote-access
-      name: '@deepseek-ai/dsh-remote-access'
+      name: '@froststarinquire/dsh-remote-access'
       config:
         # Deployment selects the tunnel provider; absent env keeps the schema
         # default `none`, so an unconfigured install stays inert.

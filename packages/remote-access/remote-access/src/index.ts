@@ -1,5 +1,5 @@
 /**
- * @module @deepseek-ai/dsh-remote-access
+ * @module @froststarinquire/dsh-remote-access
  *
  * Remote-access host plugin (`ctx.remoteAccess`): manages an outbound
  * reverse-tunnel child process, keeps it alive with automatic restart, and

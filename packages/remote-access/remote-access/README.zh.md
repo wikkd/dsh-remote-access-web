@@ -1,4 +1,4 @@
-# @deepseek-ai/dsh-remote-access
+# @froststarinquire/dsh-remote-access
 
 [English](README.md) | 中文
 
@@ -37,6 +37,6 @@ export interface Config {
 
 ## Known Limitations and Deferred Work
 
-- **仅连接、无认证**——插件开通隧道，但不限定谁能通过它访问 harness。配对认证（`@deepseek-ai/dsh-remote-access`）或可信隧道须另行叠加。
+- **仅连接、无认证**——插件开通隧道，但不限定谁能通过它访问 harness。配对认证（`@froststarinquire/dsh-remote-access`）或可信隧道须另行叠加。
 - **可信权威值必须在启动时传入**——`/api` 信任围栏只采样一次 `--trusted-host`；隧道的公网权威值必须是启动 flag，无法从本插件运行时补加。
 - **单隧道子进程**——插件仅管理一个隧道进程；多隧道并发与其他 provider 的支持超出本期范围。

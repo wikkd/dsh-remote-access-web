@@ -1,6 +1,6 @@
 {
-  "name": "@deepseek-ai/dsh-remote-access-web",
-  "description": "The dsh browser-surface remote-access bundle: mounts the reverse-tunnel host plugin over dsh-web-app so a remote device can reach the harness web service through a configurable tunnel provider (frp driver)",
+  "name": "@froststarinquire/dsh-remote-access-web",
+  "description": "Remote-access bundle for the DSH browser surface: mounts the reverse-tunnel host plugin and pins the directory picker to the in-app browse dialog so a remote operator can add workspaces",
   "version": "0.1.0-rc.5",
   "publishConfig": {
     "access": "public"
@@ -18,19 +18,14 @@
       "types": "./lib/types/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./invariant": {
-      "types": "./lib/types/invariant.d.ts",
-      "default": "./lib/invariant.js"
-    },
     "./cordis.patch.yml": "./cordis.patch.yml",
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
   "files": [
     "lib/index.js",
-    "lib/invariant.js",
-    "cordis.patch.yml",
-    "lib/types/**/*.d.ts"
+    "lib/types/index.d.ts",
+    "cordis.patch.yml"
   ],
   "license": "MIT",
   "dsh": {
@@ -41,14 +36,9 @@
   "dependencies": {
     "@deepseek-ai/dsh-client-ui-directory-picker-browse": "^0.1.0-rc.5",
     "@deepseek-ai/dsh-host-directory-picker-browse": "^0.1.0-rc.5",
-    "@deepseek-ai/dsh-remote-access": "^0.1.0-rc.5"
+    "@froststarinquire/dsh-remote-access": "^0.1.0-rc.5"
   },
-  "peerDependencies": {
-    "@deepseek-ai/dsh-invariants": "^0.1.0-rc.5",
-    "@deepseek-ai/cordis": "^0.1.0-rc.5"
-  },
-  "devDependencies": {
-    "@deepseek-ai/dsh-invariants": "^0.1.0-rc.5",
-    "@deepseek-ai/cordis": "^0.1.0-rc.5"
+  "scripts": {
+    "prepare": "node scripts/prepare.mjs"
   }
 }

@@ -45,8 +45,8 @@ describe('dsh-remote-access-web bundle', () => {
     // The reverse-tunnel host plugin, mounted over web-app.
     const row = rows.find(candidate => candidate.id === 'remote-access')
     if (row === undefined) throw new TypeError('remote-access-web patch must mount the remote-access row')
-    expect(row['name']).toBe('@deepseek-ai/dsh-remote-access')
-    expect(manifest.dependencies).toHaveProperty('@deepseek-ai/dsh-remote-access')
+    expect(row['name']).toBe('@froststarinquire/dsh-remote-access')
+    expect(manifest.dependencies).toHaveProperty('@froststarinquire/dsh-remote-access')
 
     // A remote deployment must use the in-app browse picker, not the adaptive
     // chooser web-app mounts (which resolves to a native OS dialog on loopback).

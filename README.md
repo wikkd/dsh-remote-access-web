@@ -8,10 +8,10 @@ Independent source/publishing repository for the DeepSeek Harness **remote-acces
 
 | Package | Role |
 |---|---|
-| [`@deepseek-ai/dsh-remote-access`](packages/remote-access/remote-access/README.md) | Reverse-tunnel host plugin (`ctx.remoteAccess`): manages and keeps alive the outbound tunnel child for the configured provider |
+| [`@froststarinquire/dsh-remote-access`](packages/remote-access/remote-access/README.md) | Reverse-tunnel host plugin (`ctx.remoteAccess`): manages and keeps alive the outbound tunnel child for the configured provider |
 | [`@deepseek-ai/dsh-remote-auth`](packages/remote-access/remote-auth/README.md) | Pairing-auth host plugin: seed token + one-time device pairing gating non-loopback `/api` |
 | [`@deepseek-ai/dsh-client-ui-remote-auth`](packages/client/ui-remote-auth/README.md) | Browser settings surface for the pairing seam |
-| [`@deepseek-ai/dsh-remote-access-web`](packages/bundle/remote-access-web/README.md) | Installable profile bundle mounting the tunnel row over `dsh-web-app` |
+| [`@froststarinquire/dsh-remote-access-web`](packages/bundle/remote-access-web/README.md) | Installable profile bundle mounting the tunnel row over `dsh-web-app` |
 
 ## Status
 
@@ -26,7 +26,7 @@ The installable bundle pins the directory-picker seam to the in-app **`-browse`*
 From the main DeepSeek Harness installation:
 
 ```sh
-dsh plugin --profile web add @deepseek-ai/dsh-remote-access-web
+dsh plugin --profile web add @froststarinquire/dsh-remote-access-web
 ```
 
 Then launch the web surface, replacing `<your-tunnel-host:port>` with your own tunnel's public authority:

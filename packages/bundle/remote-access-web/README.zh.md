@@ -1,8 +1,8 @@
-# `@deepseek-ai/dsh-remote-access-web`
+# `@froststarinquire/dsh-remote-access-web`
 
 [English](README.md) | 中文
 
-dsh 浏览器 surface 的远程访问 bundle。[`cordis.patch.yml`](cordis.patch.yml) 叠加在 [`dsh-web-app`](../web-app/README.md) 之上：它插入 `@deepseek-ai/dsh-remote-access` host 行（位于 `packages/remote-access/remote-access`），由该插件管理一条出站反向隧道，使远程设备能访问 harness web 服务。隧道后端由 `provider` 配置决定；随附的驱动是 **frp** provider（`provider: 'frp'`），运行一个兼容 `frpc` 的客户端。已托管的浏览器 surface（含手机抽屉布局与 remote-auth 配对门禁）仍由 `dsh-web-app` 承载；本 bundle 只负责隧道管理，并说明把隧道准入 `/api` browser-trust 围栏的启动契约。
+dsh 浏览器 surface 的远程访问 bundle。[`cordis.patch.yml`](cordis.patch.yml) 叠加在 [`dsh-web-app`](../web-app/README.md) 之上：它插入 `@froststarinquire/dsh-remote-access` host 行（位于 `packages/remote-access/remote-access`），由该插件管理一条出站反向隧道，使远程设备能访问 harness web 服务。隧道后端由 `provider` 配置决定；随附的驱动是 **frp** provider（`provider: 'frp'`），运行一个兼容 `frpc` 的客户端。已托管的浏览器 surface（含手机抽屉布局与 remote-auth 配对门禁）仍由 `dsh-web-app` 承载；本 bundle 只负责隧道管理，并说明把隧道准入 `/api` browser-trust 围栏的启动契约。
 
 profile 在 `dsh.profile.bundles` 列表里把本 bundle 放在 `dsh-web-app` 之后。因为 bundle patch 替换整行的 `config`，插入的行全部从部署环境（`DSH_REMOTE_ACCESS_*`）读取，绝不写死字面量。未配置的安装保持惰性：插件的 `provider` 默认为 `none`，所以一个还没有隧道凭据就添加本 bundle 的 profile 不会启动任何子进程。
 

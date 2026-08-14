@@ -1,4 +1,4 @@
-# @deepseek-ai/dsh-remote-access
+# @froststarinquire/dsh-remote-access
 
 English | [中文](README.zh.md)
 
@@ -37,6 +37,6 @@ None direct; the plugin's lifecycle events do not enter any model request.
 
 ## Known Limitations and Deferred Work
 
-- **Connect only, no authentication** — the plugin opens a tunnel but does not gate who reaches the harness through it. Pair authentication (`@deepseek-ai/dsh-remote-access`) or a trusted tunnel must be layered separately.
+- **Connect only, no authentication** — the plugin opens a tunnel but does not gate who reaches the harness through it. Pair authentication (`@froststarinquire/dsh-remote-access`) or a trusted tunnel must be layered separately.
 - **Trusted authority must be passed at boot** — the `/api` trust fence samples `--trusted-host` once; the tunnel's public authority must be a launch flag, not added from this plugin's runtime.
 - **One tunnel child** — the plugin manages a single tunnel process; multiple-concurrent-tunnel and additional-provider support is out of scope for this phase.
