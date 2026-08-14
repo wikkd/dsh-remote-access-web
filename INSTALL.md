@@ -132,15 +132,15 @@ remote-auth pairing flow come from the official `dsh-web-app` surface.
 
 ## Troubleshooting / 常见问题
 
-- **`dsh plugin add` fails to resolve `@froststarinquire/dsh-remote-access`** —
-  you must publish the host plugin first (or install the repository locally).
+- **`dsh plugin add` fails to fetch** — check your npm registry reachability and
+  that you are on a `web` profile whose harness peer packages are installed.
 - **Plugin stays inert (no tunnel spawns)** — `DSH_REMOTE_ACCESS_PROVIDER` is
   not `frp`, or `frpcPath`/`frpArgs` are unset. The plugin requires both under
   `frp`.
 - **`frpc` not found at runtime** — `DSH_REMOTE_ACCESS_FRPC_PATH` is wrong.
 
-> - **`dsh plugin add` 解析不到 `@froststarinquire/dsh-remote-access`** —— 需先发布 host
->   插件（或本地安装仓库）。
+> - **`dsh plugin add` 拉取失败** —— 检查 npm registry 是否可达，以及你所在的 `web`
+>   profile 是否已装好官方 harness 的 peer 包。
 > - **插件保持惰性（无隧道子进程）** —— `DSH_REMOTE_ACCESS_PROVIDER` 未设为 `frp`，或
 >   `frpcPath`/`frpArgs` 未设置。`frp` 模式下两者都必需。
 > - **运行时找不到 `frpc`** —— `DSH_REMOTE_ACCESS_FRPC_PATH` 有误。

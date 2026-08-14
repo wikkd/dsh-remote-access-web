@@ -17,7 +17,7 @@ The `dsh-remote-access` host plugin is adapted from the **`@deepseek-ai/dsh-remo
 
 ## Status
 
-Source and publishing-ready. Both packages build standalone (`pnpm install` then `pnpm pack`). They depend as peers on the released `@deepseek-ai/*` harness packages (`cordis`, `dsh-subprocess`, `dsh-invariants`).
+Both packages are published to npm: `@froststarinquire/dsh-remote-access` (host plugin) and `@froststarinquire/dsh-remote-access-web` (bundle). They depend as peers on the released `@deepseek-ai/*` harness packages (`cordis`, `dsh-subprocess`, `dsh-invariants`). See [`INSTALL.md`](INSTALL.md) for the one-command install and the `frpc` + environment setup the tunnel needs.
 
 ## Remote workspace picker
 

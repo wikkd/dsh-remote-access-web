@@ -17,7 +17,7 @@ DeepSeek Harness **远程访问插件族**的源码/发布仓库。本仓库托�
 
 ## 状态
 
-源码与发布就绪。两个包都能独立构建（`pnpm install` 后 `pnpm pack`）。它们以 peer 依赖已发布的 `@deepseek-ai/*` harness 包（`cordis`、`dsh-subprocess`、`dsh-invariants`）。
+两个包均已发布到 npm：`@froststarinquire/dsh-remote-access`（host 插件）和 `@froststarinquire/dsh-remote-access-web`（bundle）。它们以 peer 依赖已发布的 `@deepseek-ai/*` harness 包（`cordis`、`dsh-subprocess`、`dsh-invariants`）。一键安装与 `frpc`/环境变量的配置见 [`INSTALL.md`](INSTALL.md)。
 
 ## 远程工作区目录选择
 
