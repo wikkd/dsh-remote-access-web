@@ -29,7 +29,8 @@
     "lib/index.js",
     "lib/invariant.js",
     "lib/index.d.ts",
-    "lib/invariant.d.ts"
+    "lib/invariant.d.ts",
+    "LICENSE"
   ],
   "license": "MIT",
   "peerDependencies": {

@@ -25,7 +25,8 @@
   "files": [
     "lib/index.js",
     "lib/types/index.d.ts",
-    "cordis.patch.yml"
+    "cordis.patch.yml",
+    "LICENSE"
   ],
   "license": "MIT",
   "dsh": {
