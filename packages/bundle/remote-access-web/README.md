@@ -2,11 +2,13 @@
 
 English | [中文](README.zh.md)
 
-The dsh browser-surface remote-access bundle. [`cordis.patch.yml`](cordis.patch.yml) rides over [`dsh-web-app`](../web-app/README.md): it inserts the `@froststarinquire/dsh-remote-access` host row (under `packages/remote-access/remote-access`), which manages an outbound reverse tunnel so a remote device can reach the harness web service. The tunnel backend is selected by the `provider` config; the shipped driver is the **frp** provider (`provider: 'frp'`), running an `frpc`-compatible client. The hosted/browser surface — including the phone drawer layout and the remote-auth pairing gate — is already carried by `dsh-web-app`; this bundle adds only tunnel management and documents the launch contract that admits the tunnel through the `/api` browser-trust fence.
+The dsh browser-surface remote-access bundle. [`cordis.patch.yml`](cordis.patch.yml) rides over the official `dsh-web-app` surface: it inserts the `@froststarinquire/dsh-remote-access` host row, which manages an outbound reverse tunnel so a remote device can reach the harness web service. The tunnel backend is selected by the `provider` config; the shipped driver is the **frp** provider (`provider: 'frp'`), running an `frpc`-compatible client. The browser surface (phone drawer layout, remote-auth pair gate) is carried by `dsh-web-app`; this bundle only adds tunnel management and the launch contract that admits the tunnel through the `/api` browser-trust fence.
 
-A profile installs this bundle after `dsh-web-app` in its `dsh.profile.bundles` list. Because a bundle patch replaces a whole row's `config`, the inserted row reads every value from the deployment environment (`DSH_REMOTE_ACCESS_*`), never literal config. An unconfigured install stays inert: the plugin's `provider` default is `none`, so a profile that adds this bundle before owning a tunnel spawns nothing.
+The host plugin is adapted from `@deepseek-ai/dsh-remote-access` in the [DeepSeek Harness](https://github.com/deepseek-ai/dsh) source (MIT), published here under the `@froststarinquire` scope.
 
-The patch also **pins the directory-picker seam to the in-app `-browse` interaction** for this deployment. `dsh-web-app` mounts the adaptive `dsh-host-directory-picker-auto` chooser, which resolves to the native OS dialog whenever the harness binds only loopback — precisely what a reverse tunnel sees, so a remote operator cannot open a local OS chooser and the **Add workspace** affordance stays unrendered. This bundle disables that row and mounts `dsh-host-directory-picker-browse` plus its `dsh-client-ui-directory-picker-browse` surface, giving the remote operator the in-app Miller-column directory dialog backed by the host's `listDirectory`/`createDirectory` primitives.
+A profile installs this bundle after `dsh-web-app` in `dsh.profile.bundles`. Because a bundle patch replaces a whole row's `config`, the inserted row reads every value from the deployment environment (`DSH_REMOTE_ACCESS_*`), never literal config. An unconfigured install stays inert: the plugin's `provider` default is `none`, so a profile that adds this bundle before owning a tunnel spawns nothing.
+
+The patch also pins the directory picker to the in-app **`-browse`** interaction. Through a reverse tunnel the native OS dialog is unavailable, so `dsh-web-app`'s adaptive chooser would leave the remote operator with no way to add a workspace. This bundle disables that chooser and mounts `dsh-host-directory-picker-browse` plus its `dsh-client-ui-directory-picker-browse` surface.
 
 ## Configuration
 
@@ -36,14 +38,6 @@ dsh --profile web \
 ```
 
 `--allow-remote-privileged` lets the loopback-pinned methods (`settings`, `credentials`, native dialogs) accept the trusted authority; `--remote-auth` enforces the paired-session gate on non-loopback `/api`. Some tunnel providers (including typical frp edges) are HTTPS-only and return 501 on `http://`, so open the phone on the `https://` public URL.
-
-## Model Experience
-
-Indirectly, through the inserted rows: this bundle selects the reverse-tunnel host row that the web-app surface rides over and pins the browser-directory composition, and contributes no model-visible text of its own.
-
-#### KV Cache effect
-
-None directly; each inserted row's own package owns its effect.
 
 ## Known Limitations and Deferred Work
 

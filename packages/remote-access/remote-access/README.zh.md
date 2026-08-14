@@ -2,9 +2,11 @@
 
 [English](README.md) | 中文
 
+改编自 [DeepSeek Harness](https://github.com/deepseek-ai/dsh) 源码里的 `@deepseek-ai/dsh-remote-access`（MIT），本仓库以 `@froststarinquire` scope 发布。
+
 远程访问 host 插件：管理并保活一个出站反向隧道子进程，使远程设备能访问 harness web 服务。隧道后端由 `provider` 配置决定；随附的驱动是 **frp** provider，运行一个兼容 `frpc` 的客户端。该插件对外发布隧道的可达性状态。
 
-插件范围是**仅建立连接**——它负责建立并维持一个隧道，**不**在 harness web 服务前添加认证层。一旦 `--trusted-host` 把隧道权威值加入白名单，远程设备就能通过 `/api` 浏览器信任围栏；配对认证（[`@deepseek-ai/dsh-remote-auth`](../remote-auth/README.md)）才是证明调用者身份的独立一层。插件**在未配置真实隧道凭据时保持惰性**：其 `provider` 默认为 `none`，未配置的挂载不会启动任何东西。
+插件范围是**仅建立连接**——它负责建立并维持一个隧道，**不**在 harness web 服务前添加认证层。一旦 `--trusted-host` 把隧道权威值加入白名单，远程设备就能通过 `/api` 浏览器信任围栏；配对认证是证明调用者身份的独立一层（属于官方 harness）。插件**在未配置真实隧道凭据时保持惰性**：其 `provider` 默认为 `none`，未配置的挂载不会启动任何东西。
 
 ## 生命周期
 
@@ -27,16 +29,8 @@ export interface Config {
 
 当 `provider` 为 `frp` 但 `frpcPath`/`frpArgs` 缺失时，插件会响亮拒绝激活，而非静默地在无隧道下运行。部署层面的可变值（frpc 路径、快速启动密钥、公网 URL）经 Config 传入——绝不写死——因而可从 `cordis.patch.yml` 或环境变量更改。
 
-## Model Experience
-
-间接地，通过渲染隧道可达性的消费方界面生效：插件自身不注册任何 prompt、工具 schema 或结果。
-
-#### KV Cache effect
-
-无直接影响；插件的生命周期事件不会进入任何模型请求。
-
 ## Known Limitations and Deferred Work
 
-- **仅连接、无认证**——插件开通隧道，但不限定谁能通过它访问 harness。配对认证（`@froststarinquire/dsh-remote-access`）或可信隧道须另行叠加。
+- **仅连接、无认证**——插件开通隧道，但不限定谁能通过它访问 harness。配对认证或可信隧道须另行叠加。
 - **可信权威值必须在启动时传入**——`/api` 信任围栏只采样一次 `--trusted-host`；隧道的公网权威值必须是启动 flag，无法从本插件运行时补加。
 - **单隧道子进程**——插件仅管理一个隧道进程；多隧道并发与其他 provider 的支持超出本期范围。

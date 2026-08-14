@@ -2,24 +2,26 @@
 
 English | [中文](README.zh.md)
 
-Independent source/publishing repository for the DeepSeek Harness **remote-access plugin family**. This repository hosts the packages that let a remote device reach a `dsh --profile web` deployment through a managed reverse tunnel, plus the authentication pairing gate and its browser settings surface. The tunnel backend is selected by a configurable `provider`; the shipped driver is the **frp** provider running an `frpc`-compatible client.
+Source and publishing repository for the DeepSeek Harness remote-access plugin family. It hosts two packages that let a remote device reach a `dsh --profile web` deployment through a managed reverse tunnel. The tunnel backend is selected by a configurable `provider`; the shipped driver is the **frp** provider running an `frpc`-compatible client.
 
 ## Packages
 
 | Package | Role |
 |---|---|
 | [`@froststarinquire/dsh-remote-access`](packages/remote-access/remote-access/README.md) | Reverse-tunnel host plugin (`ctx.remoteAccess`): manages and keeps alive the outbound tunnel child for the configured provider |
-| [`@deepseek-ai/dsh-remote-auth`](packages/remote-access/remote-auth/README.md) | Pairing-auth host plugin: seed token + one-time device pairing gating non-loopback `/api` |
-| [`@deepseek-ai/dsh-client-ui-remote-auth`](packages/client/ui-remote-auth/README.md) | Browser settings surface for the pairing seam |
 | [`@froststarinquire/dsh-remote-access-web`](packages/bundle/remote-access-web/README.md) | Installable profile bundle mounting the tunnel row over `dsh-web-app` |
+
+## Upstream
+
+The `dsh-remote-access` host plugin is adapted from the **`@deepseek-ai/dsh-remote-access`** plugin in the [DeepSeek Harness](https://github.com/deepseek-ai/dsh) source (MIT). This repository publishes it under the `@froststarinquire` scope; it targets the same `@deepseek-ai/*` peer packages that the official harness ships. The `remote-auth` pairing plugin and its settings UI are not republished here — they ship with the official `dsh-web-app` surface.
 
 ## Status
 
-Source and publishing-ready. The packages depend as **peers on the released `@deepseek-ai/*` harness packages** (`cordis`, `dsh-subprocess`, the `dsh-client-*` web stack, `web-react`, React). Those peers are published to npm as part of the DeepSeek Harness release; a standalone `pnpm install`/build in this repository requires them published under the `0.1.0` line. Until that publication, this repository holds the source and CI-ready structure rather than a self-contained build.
+Source and publishing-ready. Both packages build standalone (`pnpm install` then `pnpm pack`). They depend as peers on the released `@deepseek-ai/*` harness packages (`cordis`, `dsh-subprocess`, `dsh-invariants`).
 
 ## Remote workspace picker
 
-The installable bundle pins the directory-picker seam to the in-app **`-browse`** interaction. `dsh-web-app` mounts the adaptive chooser, which resolves to the native OS dialog whenever the harness binds only loopback — exactly what a reverse tunnel sees, so a remote operator cannot open a local OS chooser and the **Add workspace** affordance stays unrendered. The bundle disables that chooser row and mounts the in-app directory dialog (host backend + client surface) so a remote operator can add workspaces.
+The installable bundle pins the directory-picker to the **`-browse`** interaction. `dsh-web-app` normally uses an adaptive chooser that only offers a native OS dialog on loopback; through a reverse tunnel that dialog is unavailable, so a remote operator would have no way to add a workspace. The bundle disables that chooser and mounts the in-app browse dialog (host backend + client surface) instead.
 
 ## Install the bundle
 
@@ -42,4 +44,4 @@ See the bundle [`README`](packages/bundle/remote-access-web/README.md) for the f
 
 ## AIGC Disclosure
 
-This repository was developed with AI assistance. The code, documentation, and listing descriptions were generated or revised by a large language model in collaboration with a human maintainer. Review the source before deploying it to an untrusted environment.
+Developed with AI assistance. The code, documentation, and listing copy here were written or revised with a language model, then reviewed by a human maintainer. The `dsh-remote-access` logic itself derives from upstream MIT code. Review the source before deploying it to an untrusted environment.

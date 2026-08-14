@@ -17,6 +17,13 @@ operate it from a browser.
 > 这是 DSH 浏览器面的补丁型 bundle。安装进 `web` profile 后，它引入反向隧道 host 插件，
 > 并把工作区目录选择器固定为应用内浏览对话框，使远程设备能访问并操作 harness web 服务。
 
+The reverse-tunnel host plugin is adapted from `@deepseek-ai/dsh-remote-access`
+in the official [DeepSeek Harness](https://github.com/deepseek-ai/dsh) source
+(MIT), published here under the `@froststarinquire` scope.
+
+> 反向隧道 host 插件改编自官方 [DeepSeek Harness](https://github.com/deepseek-ai/dsh)
+> 源码里的 `@deepseek-ai/dsh-remote-access`（MIT），本仓库以 `@froststarinquire` scope 发布。
+
 ## Prerequisites / 前置依赖
 
 1. A working **DeepSeek Harness** installation (the `dsh` CLI). This bundle
